@@ -24,7 +24,7 @@ object Build extends Build {
       "org.scalatest"         %%    "scalatest"         % ScalatestVersion     % "test",
       "org.mockito"           %     "mockito-all"       % "1.9.5"              % "test"
     ),
-    publishTo := Some(Resolver.file("file", new File("/home/thib/lila-maven/"))),
+    publishTo := Some(Resolver.file("file", new File(sys.props.getOrElse("publishTo", "")))),
     // publishTo := {
     //   val nexus = "https://oss.sonatype.org/"
     //   if (isSnapshot.value)
