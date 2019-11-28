@@ -1,4 +1,3 @@
-import com.typesafe.sbt.SbtPgp._
 import sbt.Keys._
 import sbt._
 
@@ -14,27 +13,25 @@ object Build extends Build {
     name := "scrimage",
     scalaVersion := "2.13.1",
     crossScalaVersions := Seq("2.10.6", "2.11.7", "2.12.10", "2.13.1"),
-    publishMavenStyle := true,
+    // publishMavenStyle := true,
     publishArtifact in Test := false,
     parallelExecution in Test := false,
     scalacOptions := Seq("-unchecked", "-encoding", "utf8"),
-    javacOptions ++= Seq("-source", "1.7", "-target", "1.7"),
+    // javacOptions ++= Seq("-source", "1.7", "-target", "1.7"),
     libraryDependencies ++= Seq(
       "org.slf4j"             %     "slf4j-api"         % "1.7.7",
       "org.imgscalr"          %     "imgscalr-lib"      % "4.2"                % "test",
       "org.scalatest"         %%    "scalatest"         % ScalatestVersion     % "test",
       "org.mockito"           %     "mockito-all"       % "1.9.5"              % "test"
     ),
-    publishTo := {
-      val nexus = "https://oss.sonatype.org/"
-      if (isSnapshot.value)
-        Some("snapshots" at nexus + "content/repositories/snapshots")
-      else
-        Some("releases" at nexus + "service/local/staging/deploy/maven2")
-    },
-    useGpg := true,
-    sbtrelease.ReleasePlugin.autoImport.releasePublishArtifactsAction := PgpKeys.publishSigned.value,
-    sbtrelease.ReleasePlugin.autoImport.releaseCrossBuild := true,
+    publishTo := Some(Resolver.file("file", new File("/home/thib/lila-maven/"))),
+    // publishTo := {
+    //   val nexus = "https://oss.sonatype.org/"
+    //   if (isSnapshot.value)
+    //     Some("snapshots" at nexus + "content/repositories/snapshots")
+    //   else
+    //     Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    // },
     pomIncludeRepository := { _ => false },
     pomExtra := {
       <url>https://github.com/sksamuel/scrimage</url>
